@@ -184,9 +184,9 @@ class BirminghamMethod(pept.base.LineDataFilter):
         # ============================= HISTOGRAM =============================
         print("\nHISTOGRAME: \n")
 
-              plt.hist(X_pcaa[:, 2], bins =100)
-              plt.show()
-              print(len(X_pcaa),"=" * 50)
+        plt.hist(X_pcaa[:, 2], bins =100)
+        plt.show()
+        print(len(X_pcaa),"=" * 50)
 
         return X_pcaa[:, 3]
 
