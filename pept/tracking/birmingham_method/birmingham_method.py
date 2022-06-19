@@ -224,39 +224,39 @@ class BirminghamMethod(pept.base.LineDataFilter):
         
         
         
-        
-        
-        
-        if not isinstance(sample, pept.LineData):
-            sample = pept.LineData(sample)
-        
 
-        lines__ = sample.lines         ######################################
-                 
-        filter_label = PEPT_PCA(lines__)            ######################################
-        lines__ = np.insert(lines__, 7, filter_label, axis = 1)       ######################################
-        lines__ = lines__[lines__[:,-1] > 0.8]       ######################################
-        lines__ = lines__[:,:-1]       ######################################
-            
-        print(len(lines__))          ######################################
-            
-#         locations, used = birmingham_method(sample.lines, self.fopt)
-        locations, used = birmingham_method(lines__, self.fopt)        ######################################
 
-        # Propagate any LineData attributes besides `columns`
-        attrs = sample.extra_attrs()
 
-        locations = pept.PointData(
-            [locations],
-            columns = ["t", "x", "y", "z", "error"],
-            **attrs,
+    if not isinstance(sample, pept.LineData):
+        sample = pept.LineData(sample)
+
+
+    lines__ = sample.lines         ######################################
+
+    filter_label = PEPT_PCA(lines__)            ######################################
+    lines__ = np.insert(lines__, 7, filter_label, axis = 1)       ######################################
+    lines__ = lines__[lines__[:,-1] > 0.8]       ######################################
+    lines__ = lines__[:,:-1]       ######################################
+
+    print(len(lines__))          ######################################
+
+    #         locations, used = birmingham_method(sample.lines, self.fopt)
+    locations, used = birmingham_method(lines__, self.fopt)        ######################################
+
+    # Propagate any LineData attributes besides `columns`
+    attrs = sample.extra_attrs()
+
+    locations = pept.PointData(
+        [locations],
+        columns = ["t", "x", "y", "z", "error"],
+        **attrs,
+    )
+
+    # If `get_used`, also attach a `._lines` attribute with the lines used
+    if self.get_used:
+        locations.attrs["_lines"] = sample.copy(
+            data = np.c_[sample.lines, used],
+            columns = sample.columns + ["used"],
         )
 
-        # If `get_used`, also attach a `._lines` attribute with the lines used
-        if self.get_used:
-            locations.attrs["_lines"] = sample.copy(
-                data = np.c_[sample.lines, used],
-                columns = sample.columns + ["used"],
-            )
-
-        return locations
+    return locations
