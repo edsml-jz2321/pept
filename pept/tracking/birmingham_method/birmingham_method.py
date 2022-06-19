@@ -111,6 +111,7 @@ class BirminghamMethod(pept.base.LineDataFilter):
         # access through the getter and setter of the self.fopt property).
         self.fopt = float(fopt)
         self.get_used = bool(get_used)
+        print("\n____INIT______\n")
 
 
 
@@ -238,7 +239,7 @@ class BirminghamMethod(pept.base.LineDataFilter):
         lines__ = lines__[lines__[:,-1] > 0.8]       ######################################
         lines__ = lines__[:,:-1]       ######################################
 
-        print(len(lines__))          ######################################
+        print("\n---------------", len(lines__), "---------------\n")          ######################################
         
         sample = pept.LineData(lines__)
 
