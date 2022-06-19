@@ -112,78 +112,78 @@ class BirminghamMethod(pept.base.LineDataFilter):
 
     from sklearn.decomposition import PCA
     def PEPT_PCA(self, lors):
-      # ============================= ADD LABELS =============================
-      lor_a_time_interval1 = pd.DataFrame(lors[:])
-      # lor_a_time_interval1["label"]=[0]*2000
+        # ============================= ADD LABELS =============================
+        lor_a_time_interval1 = pd.DataFrame(lors[:])
+        # lor_a_time_interval1["label"]=[0]*2000
 
-      # lor_a_time_interval2 = pd.DataFrame(lors[-2000:])
-      # lor_a_time_interval2["label"]=[1]*2000
+        # lor_a_time_interval2 = pd.DataFrame(lors[-2000:])
+        # lor_a_time_interval2["label"]=[1]*2000
 
-      # two_particle = pd.concat([lor_a_time_interval1, lor_a_time_interval2], axis=0)
+        # two_particle = pd.concat([lor_a_time_interval1, lor_a_time_interval2], axis=0)
 
-      # lor_a_time_interval3 = pd.DataFrame(lors[8000:10000])
-      # lor_a_time_interval3["label"]=[2]*2000
+        # lor_a_time_interval3 = pd.DataFrame(lors[8000:10000])
+        # lor_a_time_interval3["label"]=[2]*2000
 
-      # three_particle = pd.concat([two_particle, lor_a_time_interval3], axis=0)
-      lor_3_time_interval_without_time = lor_a_time_interval1.iloc[:,1:]
-      # print("\nLORS WITH LABELS: \n", lor_3_time_interval_without_time, "\n")
-      # print("=" * 50)
+        # three_particle = pd.concat([two_particle, lor_a_time_interval3], axis=0)
+        lor_3_time_interval_without_time = lor_a_time_interval1.iloc[:,1:]
+        # print("\nLORS WITH LABELS: \n", lor_3_time_interval_without_time, "\n")
+        # print("=" * 50)
 
-      # labels = lor_3_time_interval_without_time["label"]
-      lor_3_time_interval_without_time=lor_3_time_interval_without_time
+        # labels = lor_3_time_interval_without_time["label"]
+        lor_3_time_interval_without_time=lor_3_time_interval_without_time
 
-      # ============================= PCA =============================
-      # we want to reduce the dimensionality of our data to 2 dimensions for easy visualization
-      pca = PCA(n_components=3)
+        # ============================= PCA =============================
+        # we want to reduce the dimensionality of our data to 2 dimensions for easy visualization
+        pca = PCA(n_components=3)
 
-      # fit our pca object to the scaled data
-      X_pca = pca.fit_transform(lor_3_time_interval_without_time)
-      # explained variance is the fraction of the total variance in the entire dataset that a principal component accounts for
-      # print("\nPCA EXPLAINED: \n", pca.explained_variance_ratio_, "\n")
-      # print("=" * 50)
+        # fit our pca object to the scaled data
+        X_pca = pca.fit_transform(lor_3_time_interval_without_time)
+        # explained variance is the fraction of the total variance in the entire dataset that a principal component accounts for
+        # print("\nPCA EXPLAINED: \n", pca.explained_variance_ratio_, "\n")
+        # print("=" * 50)
 
-      # ============================= 2D GRAPH =============================
-      # print("\n2D GRAPH: \n")
-      # import matplotlib.pyplot as plt
-      # # visualize PC1 vs PC2 with color as the cluster label
-      # plt.figure(figsize=(8,6))
-      # # labels =range(2000)
-      # plot = plt.scatter(X_pca[:,0], X_pca[:,1], #c=labels,
-      #                   linewidths=1, cmap='tab10', marker='+', alpha=0.7)
-      # plt.legend(*plot.legend_elements(),
-      #                     loc="upper left", title="Clusters")
-      # plt.xlabel('Principal component 1')
-      # plt.ylabel('Principal component 2')
-      # plt.grid(alpha=0.5)
-      # plt.show()
-      # print("=" * 50)
+        # ============================= 2D GRAPH =============================
+        # print("\n2D GRAPH: \n")
+        # import matplotlib.pyplot as plt
+        # # visualize PC1 vs PC2 with color as the cluster label
+        # plt.figure(figsize=(8,6))
+        # # labels =range(2000)
+        # plot = plt.scatter(X_pca[:,0], X_pca[:,1], #c=labels,
+        #                   linewidths=1, cmap='tab10', marker='+', alpha=0.7)
+        # plt.legend(*plot.legend_elements(),
+        #                     loc="upper left", title="Clusters")
+        # plt.xlabel('Principal component 1')
+        # plt.ylabel('Principal component 2')
+        # plt.grid(alpha=0.5)
+        # plt.show()
+        # print("=" * 50)
 
 
-      # ============================= 3D GRAPH WITH LABELS =============================
-      # print("\n3D GRAPH 2: \n")
-      X_pcaa = np.copy(X_pca)
-      # X_pcaa = np.insert(X_pcaa, 3, labels, axis = 1)
+        # ============================= 3D GRAPH WITH LABELS =============================
+        # print("\n3D GRAPH 2: \n")
+        X_pcaa = np.copy(X_pca)
+        # X_pcaa = np.insert(X_pcaa, 3, labels, axis = 1)
 
-      X_pcaa = np.insert(X_pcaa, 3, np.where((X_pca[:, 2] > -100) & (X_pca[:, 2] < 100), True, False), axis = 1)
-      # X_pcaa = X_pcaa[X_pcaa[:, 3] == 1]
-      # labels = X_pcaa[:, 3]
+        X_pcaa = np.insert(X_pcaa, 3, np.where((X_pca[:, 2] > -100) & (X_pca[:, 2] < 100), True, False), axis = 1)
+        # X_pcaa = X_pcaa[X_pcaa[:, 3] == 1]
+        # labels = X_pcaa[:, 3]
 
-      # fig = px.scatter_3d(
-      #     X_pcaa, x=0, y=1, z=2, # color=labels,
-      #     labels={'0': 'PC 1', '1': 'PC 2', '2': 'PC 3'},
-      #     # size = [0.000000000000001]*len(X_pca)
-      # )
-      # fig.show()  
-      # print("=" * 50)
+        # fig = px.scatter_3d(
+        #     X_pcaa, x=0, y=1, z=2, # color=labels,
+        #     labels={'0': 'PC 1', '1': 'PC 2', '2': 'PC 3'},
+        #     # size = [0.000000000000001]*len(X_pca)
+        # )
+        # fig.show()  
+        # print("=" * 50)
 
-      # ============================= HISTOGRAM =============================
-      # print("\nHISTOGRAME: \n")
+        # ============================= HISTOGRAM =============================
+        # print("\nHISTOGRAME: \n")
 
-#       plt.hist(X_pcaa[:, 2], bins =200)
-#       plt.show()
-#       print("=" * 50)
+        #       plt.hist(X_pcaa[:, 2], bins =200)
+        #       plt.show()
+        #       print("=" * 50)
 
-      return X_pcaa[:, 3]
+        return X_pcaa[:, 3]
 
         
        
