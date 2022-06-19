@@ -36,7 +36,7 @@ from    .extensions.birmingham_method   import  birmingham_method
 
 
 class BirminghamMethod(pept.base.LineDataFilter):
-    '''The Birmingham Method is an efficient, analytical technique for tracking
+    '''YVETTA The Birmingham Method is an efficient, analytical technique for tracking
     tracers using the LoRs from PEPT data.
 
     Two main methods are provided: `fit_sample` for tracking a single numpy
