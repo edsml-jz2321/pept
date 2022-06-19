@@ -37,6 +37,7 @@ from    .extensions.birmingham_method   import  birmingham_method
 import pandas as pd
 
 from sklearn.decomposition import PCA
+import matplotlib.pyplot as plt
 
 
 class BirminghamMethod(pept.base.LineDataFilter):
@@ -168,7 +169,7 @@ class BirminghamMethod(pept.base.LineDataFilter):
         X_pcaa = np.copy(X_pca)
         # X_pcaa = np.insert(X_pcaa, 3, labels, axis = 1)
 
-        X_pcaa = np.insert(X_pcaa, 3, np.where((X_pca[:, 2] > -100) & (X_pca[:, 2] < 100), True, False), axis = 1)
+        X_pcaa = np.insert(X_pcaa, 3, np.where((X_pca[:, 2] > -30) & (X_pca[:, 2] < 30), True, False), axis = 1)
         # X_pcaa = X_pcaa[X_pcaa[:, 3] == 1]
         # labels = X_pcaa[:, 3]
 
@@ -181,11 +182,11 @@ class BirminghamMethod(pept.base.LineDataFilter):
         # print("=" * 50)
 
         # ============================= HISTOGRAM =============================
-        # print("\nHISTOGRAME: \n")
+        print("\nHISTOGRAME: \n")
 
-        #       plt.hist(X_pcaa[:, 2], bins =200)
-        #       plt.show()
-        #       print("=" * 50)
+              plt.hist(X_pcaa[:, 2], bins =100)
+              plt.show()
+              print(len(X_pcaa),"=" * 50)
 
         return X_pcaa[:, 3]
 
