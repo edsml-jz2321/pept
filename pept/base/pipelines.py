@@ -380,13 +380,13 @@ class Pipeline(PEPTObject):
         '''Apply all transformers - consecutively - to a single sample of data.
         The output type is simply what the transformers return.
         '''
+        print("******************** FIT SAMPLE **********************")
         return self._fit_sample(self.transformers, sample)
 
 
     def _fit(self, transformers, samples, executor, max_workers, desc = None):
         # Select type of execution of the filtering steps and extract a list
         # of processed samples
-        print("******************** _FIT **********************")
         if executor == "sequential":
             if desc is not None:
                 samples = tqdm(samples, desc = desc)
