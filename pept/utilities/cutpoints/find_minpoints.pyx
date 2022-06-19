@@ -66,6 +66,7 @@ cdef extern from "find_minpoints_ext.h":
 
 
 
+from libc.stdio cimport printf
 cpdef find_minpoints(
     const double[:, :] sample_lines,  # LoRs in sample
     const Py_ssize_t num_lines,       # Number of LoRs in groups for computing MDP
@@ -162,6 +163,8 @@ cpdef find_minpoints(
     >>> minpoints = find_minpoints(lines, num_lines, max_distance, cutoffs)
 
     '''
+    
+    printf("@@@@@@@@@@@@@@@@@@@@@@@@ MID POINT @@@@@@@@@@@@@@@@@@@@@@@@")
 
     # Lines for a single sample => (m, n >= 7) array
     # sample_lines row: [time X1 Y1 Z1 X2 Y2 Z2 etc.]
