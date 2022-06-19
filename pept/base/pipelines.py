@@ -455,6 +455,8 @@ class Pipeline(PEPTObject):
             If True, show extra information during processing, e.g. loading
             bars.
         '''
+        
+        print("+++++++++++++++++++++++++++++++++++++++++++++++++")
 
         if not hasattr(samples, "__iter__"):
             raise ValueError(textwrap.fill((
