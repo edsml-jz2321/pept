@@ -386,6 +386,7 @@ class Pipeline(PEPTObject):
     def _fit(self, transformers, samples, executor, max_workers, desc = None):
         # Select type of execution of the filtering steps and extract a list
         # of processed samples
+        print("******************** _FIT **********************")
         if executor == "sequential":
             if desc is not None:
                 samples = tqdm(samples, desc = desc)
@@ -456,7 +457,7 @@ class Pipeline(PEPTObject):
             bars.
         '''
         
-        print("+++++++++++++++++++++++++++++++++++++++++++++++++")
+        print("++++++++++++++++++++++ FIT +++++++++++++++++++++++++++")
 
         if not hasattr(samples, "__iter__"):
             raise ValueError(textwrap.fill((
