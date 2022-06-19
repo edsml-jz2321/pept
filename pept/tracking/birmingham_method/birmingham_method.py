@@ -239,9 +239,11 @@ class BirminghamMethod(pept.base.LineDataFilter):
         lines__ = lines__[:,:-1]       ######################################
 
         print(len(lines__))          ######################################
+        
+        sample = pept.LineData(lines__)
 
         #         locations, used = birmingham_method(sample.lines, self.fopt)
-        locations, used = birmingham_method(lines__, self.fopt)        ######################################
+        locations, used = birmingham_method(sample.lines, self.fopt)        ######################################
 
         # Propagate any LineData attributes besides `columns`
         attrs = sample.extra_attrs()
