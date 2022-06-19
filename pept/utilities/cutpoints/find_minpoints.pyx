@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-這裡是MID POINTS
 
 #    pept is a Python library that unifies Positron Emission Particle
 #    Tracking (PEPT) research, including tracking, simulation, data analysis
