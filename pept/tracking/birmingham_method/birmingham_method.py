@@ -34,6 +34,10 @@ import  pept
 
 from    .extensions.birmingham_method   import  birmingham_method
 
+import pandas as pd
+
+from sklearn.decomposition import PCA
+
 
 class BirminghamMethod(pept.base.LineDataFilter):
     '''YVETTA JIAHAO OH YEAH 衝衝衝 The Birmingham Method is an efficient, analytical technique for tracking
@@ -110,7 +114,6 @@ class BirminghamMethod(pept.base.LineDataFilter):
 
 
 
-    from sklearn.decomposition import PCA
     def PEPT_PCA(self, lors):
         # ============================= ADD LABELS =============================
         lor_a_time_interval1 = pd.DataFrame(lors[:])
