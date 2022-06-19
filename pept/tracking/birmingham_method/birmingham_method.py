@@ -117,6 +117,7 @@ class BirminghamMethod(pept.base.LineDataFilter):
 
 
     def PEPT_PCA(self, lors):
+        print("\n--------------- PCA ---------------\n")  
         # ============================= ADD LABELS =============================
         lor_a_time_interval1 = pd.DataFrame(lors[:])
         # lor_a_time_interval1["label"]=[0]*2000
