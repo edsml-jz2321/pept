@@ -172,7 +172,7 @@ class BirminghamMethod(pept.base.LineDataFilter):
         # X_pcaa = np.insert(X_pcaa, 3, labels, axis = 1)
         mu, std = norm.fit(X_pcaa[:, 2])
 
-        X_pcaa = np.insert(X_pcaa, 3, np.where((X_pca[:, 2] > mu - .5*std) & (X_pca[:, 2] < mu + .5*std), True, False), axis = 1)
+        X_pcaa = np.insert(X_pcaa, 3, np.where((X_pca[:, 2] > mu - .1*std) & (X_pca[:, 2] < mu + .1*std), True, False), axis = 1)
         
         # X_pcaa = X_pcaa[X_pcaa[:, 3] == 1]
         # labels = X_pcaa[:, 3]
@@ -194,8 +194,8 @@ class BirminghamMethod(pept.base.LineDataFilter):
         x = np.linspace(xmin, xmax, 100)
         p = norm.pdf(x, mu, std)
         plt.plot(x, p, 'k', linewidth=2)
-        plt.axvline(mu+.5*std, color='red')
-        plt.axvline(mu-.5*std, color='red')
+        plt.axvline(mu+.1*std, color='red')
+        plt.axvline(mu-.1*std, color='red')
         plt.show()
         
         print("=" * 20, "mu: ", mu, "; std: ", std, "; len: ", len(X_pcaa), "=" * 20)
