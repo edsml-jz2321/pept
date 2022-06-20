@@ -173,6 +173,7 @@ class BirminghamMethod(pept.base.LineDataFilter):
         mu, std = norm.fit(X_pcaa[:, 2])
 
         X_pcaa = np.insert(X_pcaa, 3, np.where((X_pca[:, 2] > mu - std) & (X_pca[:, 2] < mu + std), True, False), axis = 1)
+        print("mu: ", mu, "; std: ", std)
         # X_pcaa = X_pcaa[X_pcaa[:, 3] == 1]
         # labels = X_pcaa[:, 3]
 
@@ -187,11 +188,10 @@ class BirminghamMethod(pept.base.LineDataFilter):
         # ============================= HISTOGRAM =============================
 #         print("\nHISTOGRAME: \n")
 
-        plt.hist(X_pcaa[:, 2], bins =100)
+        plt.hist(X_pcaa[:, 2], bins =100, density = True)
     
         xmin, xmax = plt.xlim()
         x = np.linspace(xmin, xmax, 100)
-
         p = norm.pdf(x, mu, std)
         plt.plot(x, p, 'k', linewidth=2)
         plt.axvline(mu+std, color='red')
