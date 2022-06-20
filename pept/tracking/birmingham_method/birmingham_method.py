@@ -38,6 +38,7 @@ import pandas as pd
 
 from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
+from scipy.stats import norm
 
 
 class BirminghamMethod(pept.base.LineDataFilter):
@@ -169,8 +170,9 @@ class BirminghamMethod(pept.base.LineDataFilter):
         # print("\n3D GRAPH 2: \n")
         X_pcaa = np.copy(X_pca)
         # X_pcaa = np.insert(X_pcaa, 3, labels, axis = 1)
+        mu, std = norm.fit(X_pcaa[:, 2])
 
-        X_pcaa = np.insert(X_pcaa, 3, np.where((X_pca[:, 2] > -10) & (X_pca[:, 2] < 10), True, False), axis = 1)
+        X_pcaa = np.insert(X_pcaa, 3, np.where((X_pca[:, 2] > -mu) & (X_pca[:, 2] < mu), True, False), axis = 1)
         # X_pcaa = X_pcaa[X_pcaa[:, 3] == 1]
         # labels = X_pcaa[:, 3]
 
