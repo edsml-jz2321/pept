@@ -39,6 +39,8 @@ import pandas as pd
 from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 from scipy.stats import norm
+import plotly.express as px
+
 
 
 class BirminghamMethod(pept.base.LineDataFilter):
