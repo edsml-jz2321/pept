@@ -134,7 +134,7 @@ class BirminghamMethod(pept.base.LineDataFilter):
         # three_particle = pd.concat([two_particle, lor_a_time_interval3], axis=0)
         lor_3_time_interval_without_time = lor_a_time_interval1.iloc[:,1:]
         # print("\nLORS WITH LABELS: \n", lor_3_time_interval_without_time, "\n")
-        # print("=" * 50)
+        print("=" * 50)
 
         # labels = lor_3_time_interval_without_time["label"]
         lor_3_time_interval_without_time=lor_3_time_interval_without_time
@@ -167,26 +167,26 @@ class BirminghamMethod(pept.base.LineDataFilter):
 
 
         # ============================= 3D GRAPH WITH LABELS =============================
-        # print("\n3D GRAPH 2: \n")
+        print("\n3D GRAPH 2: \n")
         X_pcaa = np.copy(X_pca)
         # X_pcaa = np.insert(X_pcaa, 3, labels, axis = 1)
         mu, std = norm.fit(X_pcaa[:, 2])
         
         X_pcaa = np.insert(X_pcaa, 3, np.where((X_pca[:, 2] >np.quantile(X_pca[:, 2], 0.3)) & (X_pca[:, 2] < np.quantile(X_pca[:, 2], 0.7)), True, False), axis = 1)
         
-        # X_pcaa = X_pcaa[X_pcaa[:, 3] == 1]
-        # labels = X_pcaa[:, 3]
+        X_pcaa = X_pcaa[X_pcaa[:, 3] == 1]
+        labels = X_pcaa[:, 3]
 
-        # fig = px.scatter_3d(
-        #     X_pcaa, x=0, y=1, z=2, # color=labels,
-        #     labels={'0': 'PC 1', '1': 'PC 2', '2': 'PC 3'},
-        #     # size = [0.000000000000001]*len(X_pca)
-        # )
-        # fig.show()  
-        # print("=" * 50)
+        fig = px.scatter_3d(
+            X_pcaa, x=0, y=1, z=2, # color=labels,
+            labels={'0': 'PC 1', '1': 'PC 2', '2': 'PC 3'},
+            # size = [0.000000000000001]*len(X_pca)
+        )
+        fig.show()  
+        print("=" * 50)
 
         # ============================= HISTOGRAM =============================
-        # print("\nHISTOGRAME: \n")
+        print("\nHISTOGRAME: \n")
 
         plt.hist(X_pcaa[:, 2], bins =50, density = True)
     
@@ -247,10 +247,10 @@ class BirminghamMethod(pept.base.LineDataFilter):
 
         lines__ = sample.lines         ######################################
 
-#         filter_label = self.PEPT_PCA(lines__)            ######################################
-#         lines__ = np.insert(lines__, 7, filter_label, axis = 1)       ######################################
-#         lines__ = lines__[lines__[:,-1] > 0.8]       ######################################
-#         lines__ = lines__[:,:-1]       ######################################
+        filter_label = self.PEPT_PCA(lines__)            ######################################
+        lines__ = np.insert(lines__, 7, filter_label, axis = 1)       ######################################
+        lines__ = lines__[lines__[:,-1] > 0.8]       ######################################
+        lines__ = lines__[:,:-1]       ######################################
 
         print("\n---------------", len(lines__), "---------------\n")          ######################################
         
