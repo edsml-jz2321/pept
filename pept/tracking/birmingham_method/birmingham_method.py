@@ -176,7 +176,7 @@ class BirminghamMethod(pept.base.LineDataFilter):
         
         X_pcaa = np.insert(X_pcaa, 3, np.where((X_pca[:, 2] >np.quantile(X_pca[:, 2], 0.3)) & (X_pca[:, 2] < np.quantile(X_pca[:, 2], 0.7)), True, False), axis = 1)
         
-        X_pcaa = X_pcaa[X_pcaa[:, 3] == 1]
+#         X_pcaa = X_pcaa[X_pcaa[:, 3] == 1]
         labels = X_pcaa[:, 3]
 
         fig = px.scatter_3d(
