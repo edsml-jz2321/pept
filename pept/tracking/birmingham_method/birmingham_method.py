@@ -180,12 +180,12 @@ class BirminghamMethod(pept.base.LineDataFilter):
 #         X_pcaa = X_pcaa[X_pcaa[:, 3] == 1]
         labels = X_pcaa[:, 3]
 
-        fig = px.scatter_3d(
-            X_pcaa, x=0, y=1, z=2, # color=labels,
-            labels={'0': 'PC 1', '1': 'PC 2', '2': 'PC 3'},
-            # size = [0.000000000000001]*len(X_pca)
-        )
-        fig.show()  
+#         fig = px.scatter_3d(
+#             X_pcaa, x=0, y=1, z=2, # color=labels,
+#             labels={'0': 'PC 1', '1': 'PC 2', '2': 'PC 3'},
+#             # size = [0.000000000000001]*len(X_pca)
+#         )
+#         fig.show()  
         print("=" * 50)
 
         # ============================= HISTOGRAM =============================
@@ -197,8 +197,12 @@ class BirminghamMethod(pept.base.LineDataFilter):
         x = np.linspace(xmin, xmax, 100)
         p = norm.pdf(x, mu, std)
         plt.plot(x, p, 'k', linewidth=2)
-        plt.axvline(np.quantile(X_pca[:, 2], 0.3), color='red')
-        plt.axvline(np.quantile(X_pca[:, 2], 0.7), color='red')
+#         plt.axvline(np.quantile(X_pca[:, 2], 0.3), color='red')
+#         plt.axvline(np.quantile(X_pca[:, 2], 0.7), color='red')
+
+        plt.axvline(mu - 0.1 * std, color='red')
+        plt.axvline(mu + 0.1 * std, color='red')
+
         plt.show()
         
         print("=" * 20, "mu: ", mu, "; std: ", std, "; len: ", len(X_pcaa), "=" * 20)
@@ -255,7 +259,7 @@ class BirminghamMethod(pept.base.LineDataFilter):
         lines__ = lines__[lines__[:,-1] > 0.8]       ######################################
         lines__ = lines__[:,:-1]       ######################################
 
-        print("\n---------------", len(lines__), "---------------\n")          ######################################
+        print("\n-----len(lines__) in each sample----------", len(lines__), "---------------\n")          ######################################
         
         sample = pept.LineData(lines__)
 
