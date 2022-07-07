@@ -197,11 +197,11 @@ class BirminghamMethod(pept.base.LineDataFilter):
         x = np.linspace(xmin, xmax, 100)
         p = norm.pdf(x, mu, std)
         plt.plot(x, p, 'k', linewidth=2)
-        plt.axvline(np.quantile(X_pca[:, 2], 0.58), color='blue')
-        plt.axvline(np.quantile(X_pca[:, 2], 0.42), color='blue')
+        plt.axvline(np.quantile(X_pca[:, 2], 0.58), color='red')
+        plt.axvline(np.quantile(X_pca[:, 2], 0.42), color='red')
 
-        plt.axvline(mu - 0.1 * std, color='red')
-        plt.axvline(mu + 0.1 * std, color='red')
+        plt.axvline(mu - 0.1 * std, color='black')
+        plt.axvline(mu + 0.1 * std, color='black')
 
         plt.show()
         
