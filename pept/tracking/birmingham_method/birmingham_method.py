@@ -40,6 +40,8 @@ from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 from scipy.stats import norm
 import plotly.express as px
+from sklearn.cluster import DBSCAN
+
 
 
 
@@ -168,46 +170,71 @@ class BirminghamMethod(pept.base.LineDataFilter):
         # print("=" * 50)
 
 
-        # ============================= 3D GRAPH WITH LABELS =============================
-        print("\n3D GRAPH 2: \n")
-        X_pcaa = np.copy(X_pca)
-        # X_pcaa = np.insert(X_pcaa, 3, labels, axis = 1)
-        mu, std = norm.fit(X_pcaa[:, 2])
+#         # ============================= 3D GRAPH WITH LABELS =============================
+#         print("\n3D GRAPH 2: \n")
+#         X_pcaa = np.copy(X_pca)
+#         # X_pcaa = np.insert(X_pcaa, 3, labels, axis = 1)
+#         mu, std = norm.fit(X_pcaa[:, 2])
         
-        X_pcaa = np.insert(X_pcaa, 3, np.where((X_pca[:, 2] >np.quantile(X_pca[:, 2], 0.42)) & (X_pca[:, 2] < np.quantile(X_pca[:, 2], 0.58)), True, False), axis = 1)
-#         X_pcaa = np.insert(X_pcaa, 3, np.where((X_pca[:, 2] > mu - 0.1 * std) & (X_pca[:, 2] < mu + 0.1 * std), True, False), axis = 1)
+#         X_pcaa = np.insert(X_pcaa, 3, np.where((X_pca[:, 2] >np.quantile(X_pca[:, 2], 0.42)) & (X_pca[:, 2] < np.quantile(X_pca[:, 2], 0.58)), True, False), axis = 1)
+# #         X_pcaa = np.insert(X_pcaa, 3, np.where((X_pca[:, 2] > mu - 0.1 * std) & (X_pca[:, 2] < mu + 0.1 * std), True, False), axis = 1)
         
-#         X_pcaa = X_pcaa[X_pcaa[:, 3] == 1]
-        labels = X_pcaa[:, 3]
+# #         X_pcaa = X_pcaa[X_pcaa[:, 3] == 1]
+#         labels = X_pcaa[:, 3]
 
-#         fig = px.scatter_3d(
-#             X_pcaa, x=0, y=1, z=2, # color=labels,
-#             labels={'0': 'PC 1', '1': 'PC 2', '2': 'PC 3'},
-#             # size = [0.000000000000001]*len(X_pca)
-#         )
-#         fig.show()  
-        print("=" * 50)
+# #         fig = px.scatter_3d(
+# #             X_pcaa, x=0, y=1, z=2, # color=labels,
+# #             labels={'0': 'PC 1', '1': 'PC 2', '2': 'PC 3'},
+# #             # size = [0.000000000000001]*len(X_pca)
+# #         )
+# #         fig.show()  
+#         print("=" * 50)
 
-        # ============================= HISTOGRAM =============================
-        print("\nHISTOGRAME: \n")
+#         # ============================= HISTOGRAM =============================
+#         print("\nHISTOGRAME: \n")
 
-        plt.hist(X_pcaa[:, 2], bins =50, density = True)
+#         plt.hist(X_pcaa[:, 2], bins =50, density = True)
     
-        xmin, xmax = plt.xlim()
-        x = np.linspace(xmin, xmax, 100)
-        p = norm.pdf(x, mu, std)
-        plt.plot(x, p, 'k', linewidth=2)
-        plt.axvline(np.quantile(X_pca[:, 2], 0.58), color='red')
-        plt.axvline(np.quantile(X_pca[:, 2], 0.42), color='red')
+#         xmin, xmax = plt.xlim()
+#         x = np.linspace(xmin, xmax, 100)
+#         p = norm.pdf(x, mu, std)
+#         plt.plot(x, p, 'k', linewidth=2)
+#         plt.axvline(np.quantile(X_pca[:, 2], 0.58), color='red')
+#         plt.axvline(np.quantile(X_pca[:, 2], 0.42), color='red')
 
-        plt.axvline(mu - 0.1 * std, color='black')
-        plt.axvline(mu + 0.1 * std, color='black')
+#         plt.axvline(mu - 0.1 * std, color='black')
+#         plt.axvline(mu + 0.1 * std, color='black')
 
-        plt.show()
+#         plt.show()
         
-        print("=" * 20, "mu: ", mu, "; std: ", std, "; len: ", len(X_pcaa), "=" * 20)
+#         print("=" * 20, "mu: ", mu, "; std: ", std, "; len: ", len(X_pcaa), "=" * 20)
 
-        return X_pcaa[:, 3]
+
+        X_pca = X_pca[:,(0,1,2)]
+    
+    # =================== AFTER PCA AND DBSCAN ==================================
+        model = DBSCAN(eps=60, min_samples=4)
+        # fit model and predict clusters
+        yhat = model.fit_predict(X_pca[:,:3])
+        return yhat
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#         return X_pcaa[:, 3]
 
         
        
