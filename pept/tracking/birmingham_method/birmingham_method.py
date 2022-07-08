@@ -176,7 +176,10 @@ class BirminghamMethod(pept.base.LineDataFilter):
         # X_pcaa = np.insert(X_pcaa, 3, labels, axis = 1)
         mu, std = norm.fit(X_pcaa[:, 2])
         
-        X_pcaa = np.insert(X_pcaa, 3, np.where((X_pca[:, 2] >np.quantile(X_pca[:, 2], 0.42)) & (X_pca[:, 2] < np.quantile(X_pca[:, 2], 0.58)), True, False), axis = 1)
+        left_boundary = 0.2
+        right_boundary = 0.8
+
+        X_pcaa = np.insert(X_pcaa, 3, np.where((X_pca[:, 2] >np.quantile(X_pca[:, 2], left_boundary)) & (X_pca[:, 2] < np.quantile(X_pca[:, 2], right_boundary)), True, False), axis = 1)
 #         X_pcaa = np.insert(X_pcaa, 3, np.where((X_pca[:, 2] > mu - 0.1 * std) & (X_pca[:, 2] < mu + 0.1 * std), True, False), axis = 1)
         
 #         X_pcaa = X_pcaa[X_pcaa[:, 3] == 1]
@@ -199,11 +202,14 @@ class BirminghamMethod(pept.base.LineDataFilter):
         x = np.linspace(xmin, xmax, 100)
         p = norm.pdf(x, mu, std)
         plt.plot(x, p, 'k', linewidth=2)
-        plt.axvline(np.quantile(X_pca[:, 2], 0.58), color='red')
-        plt.axvline(np.quantile(X_pca[:, 2], 0.42), color='red')
+#         plt.axvline(np.quantile(X_pca[:, 2], 0.58), color='red')
+#         plt.axvline(np.quantile(X_pca[:, 2], 0.42), color='red')
 
-        plt.axvline(mu - 0.1 * std, color='black')
-        plt.axvline(mu + 0.1 * std, color='black')
+#         plt.axvline(mu - 0.1 * std, color='black')
+#         plt.axvline(mu + 0.1 * std, color='black')
+
+        plt.axvline(np.quantile(X_pca[:, 2], right_boundary), color='red')
+        plt.axvline(np.quantile(X_pca[:, 2], left_boundary), color='red')
 
         plt.show()
         
@@ -219,26 +225,10 @@ class BirminghamMethod(pept.base.LineDataFilter):
 #         return yhat
 
 
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         return X_pcaa[:, 3]
 
-        
-       
-        
+   
         
     def fit_sample(self, sample):
         '''Use the Birmingham method to track a tracer location from a numpy
