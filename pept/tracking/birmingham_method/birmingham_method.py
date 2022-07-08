@@ -282,9 +282,13 @@ class BirminghamMethod(pept.base.LineDataFilter):
         lines__ = sample.lines         ######################################
 
         filter_label = self.PEPT_PCA(lines__)            ######################################
-        lines__ = np.insert(lines__, 7, filter_label, axis = 1)       ######################################
-        lines__ = lines__[lines__[:,-1] > 0.8]       ######################################
-        lines__ = lines__[:,:-1]       ######################################
+#         lines__ = np.insert(lines__, 7, filter_label, axis = 1)       ######################################
+#         lines__ = lines__[lines__[:,-1] > -0.5]       ######################################
+#         lines__ = lines__[:,:-1]       ######################################
+        
+        lines__ = lines__[filter_label > -0.5]       ######################################
+        
+        
 
         print("\n-----len(lines__) in each sample----------", len(lines__), "---------------\n")          ######################################
         
