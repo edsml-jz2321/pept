@@ -176,8 +176,8 @@ class BirminghamMethod(pept.base.LineDataFilter):
         # X_pcaa = np.insert(X_pcaa, 3, labels, axis = 1)
         mu, std = norm.fit(X_pcaa[:, 2])
         
-        left_boundary = 0.2
-        right_boundary = 0.8
+        left_boundary = 0.45
+        right_boundary = 0.55
 
         X_pcaa = np.insert(X_pcaa, 3, np.where((X_pca[:, 2] >np.quantile(X_pca[:, 2], left_boundary)) & (X_pca[:, 2] < np.quantile(X_pca[:, 2], right_boundary)), True, False), axis = 1)
 #         X_pcaa = np.insert(X_pcaa, 3, np.where((X_pca[:, 2] > mu - 0.1 * std) & (X_pca[:, 2] < mu + 0.1 * std), True, False), axis = 1)
